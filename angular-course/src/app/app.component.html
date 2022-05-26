@@ -1,0 +1,51 @@
+<div class="top-menu">
+
+    <img class="logo"
+         src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
+
+</div>
+
+<!-- Angular pipe, merupakan function yang menerima data
+    untuk dapat ditransform dari suatu bentuk ke bentuk lainnya -->
+<!-- <div class="demo">
+    <div>Start Date: {{ startDate | date: 'MMM/dd/yyyy' }}</div> -->
+    <!-- titlecase uppercase lowercase -->
+    <!-- <div>{{ title | titlecase }}</div> -->
+    <!-- number: '3.3-5', currency -->
+    <!-- <div>{{ price | currency }}</div>
+    <div>Percentage: {{ rate | percent }}</div>
+</div> -->
+
+<!-- JSON Pipe, berguna untuk debugging data -->
+<!-- {{ courses | json }} -->
+<!-- <div *ngFor="let pair of course | keyvalue">
+    {{ pair.key + ': ' + pair.value }}
+</div> -->
+
+<button (click)="onCoursesEdited()">Edit Courses</button>
+
+<div class="courses" #container>
+    <!-- [] merupakan syntax untuk input data binding -->
+    <!-- {{}} merupakan interpolation syntax untuk interpretasi data dari komponen level -->
+    <!-- <course-card (click)="onCardClicked()" [course]="coreCourse"></course-card> -->
+    <!-- * merupakan syntax untuk structural directive, untuk melakukan perubahan pada struktur dari halaman -->
+    <!-- *ngFor="let course of courses | slice:0:2; index as i; first as isFirst; last as isLast
+            even as isEven; odd as isOdd" -->
+    <!-- 
+        [class.is-first]="isFirst"
+        [class.is-last]="isLast"
+        [class.is-even]="isEven"
+        [class.is-odd]="isOdd" -->
+    <!-- <course-card #cardRef1
+        (courseSelected)="onCourseSelected($event)"
+        [course]="courses[1]"></course-card>
+    <course-card
+        (courseSelected)="onCourseSelected($event)"
+        [course]="courses[2]"></course-card> -->
+    <course-card *ngFor="let course of courses"
+        (courseSelected)="onCourseSelected($event)"
+        [course]="course"></course-card>
+
+</div>
+
+
