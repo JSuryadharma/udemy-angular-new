@@ -32,7 +32,7 @@ export class AppComponent implements AfterViewInit {
 
   // Jadi ViewChildren mencari sesuai argumen, bukan tipe data dari variabel penerima
   @ViewChildren(CourseCardComponent, {read: ElementRef})
-  cards: QueryList<CourseCardComponent>;
+  cards: QueryList<ElementRef>;
 
   constructor() {
     // console.log("containerDiv", this.card1);

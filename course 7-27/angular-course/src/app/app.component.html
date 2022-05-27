@@ -24,7 +24,8 @@
 
 <button (click)="onCoursesEdited()">Edit Courses</button>
 
-<div class="courses" #container>
+<div class="courses" #container
+    *ngIf="courses[0] as course">
     <!-- [] merupakan syntax untuk input data binding -->
     <!-- {{}} merupakan interpolation syntax untuk interpretasi data dari komponen level -->
     <!-- <course-card (click)="onCardClicked()" [course]="coreCourse"></course-card> -->
@@ -42,9 +43,32 @@
     <course-card
         (courseSelected)="onCourseSelected($event)"
         [course]="courses[2]"></course-card> -->
-    <course-card *ngFor="let course of courses"
+    <!-- <course-card *ngFor="let course of courses"
         (courseSelected)="onCourseSelected($event)"
-        [course]="course"></course-card>
+        [course]="course"></course-card> -->
+
+        <ng-template #blankImage let-courseName="description">
+            <p class="warn">{{ courseName }} has no image yet.</p>
+            <img src="/assets/empty-image.png">
+        </ng-template>
+
+        <!-- Cara menginstansiasi ng-template, let variables syntax menggunakan context -->
+        <!-- Ng-container berguna ketika kita tidak ingin me-wrap dengan DOM tambahan -->
+        <!-- <ng-container *ngTemplateOutlet="blankImage; context: {description: course.description}"></ng-container> -->
+
+        <hr><hr>
+
+        <course-card
+            (courseSelected)="onCourseSelected($event)"
+            [course]="course" [noImageTpl]="blankImage">
+            <course-image [src]="course.iconUrl"></course-image>
+            <!-- <course-image [src]="courses[3].iconUrl"></course-image>
+            <course-image [src]="courses[4].iconUrl"></course-image> -->
+            <div class="course-description">
+                {{ course.longDescription }} 
+            </div>
+            Edit Description: <textarea></textarea>
+        </course-card>
 
 </div>
 

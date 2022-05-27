@@ -1,0 +1,34 @@
+<div class="top-menu">
+
+    <img class="logo"
+         src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
+
+</div>
+
+<div class="course-card">
+    Test Card
+</div>
+
+
+<!-- Sebenarnya * pada ngIf merupakan short-hand notation yang akan membuat ng-template secara implisit, dengan atribut directive [ngIf]="kondisi" -->
+<div class="courses" *ngIf="courses[0] as course">
+    <!-- 1. Component adalah suatu directive yang memiliki template -->
+    <!-- 2. Structural directive adalah directive yang dapat mengubah struktur element DOM -->
+    <!-- 3. Atribut directive, merupakan suatu custom directive yang di-apply dalam suatu komponen -->
+    <!-- Ketika menggunakan directive, bisa melakukan export pada decorator dan melakukan reference untuk pemanggilan function -->
+    <course-card highlighted #highlighter="hl"
+        (toggleHighlight)="onToggle($event)"
+            (courseSelected)="onCourseSelected($event)"
+                 [course]="course">
+
+        <course-image [src]="course.iconUrl" *ngxUnless="!course.iconUrl"></course-image>
+
+        <div class="course-description" (dblclick)="highlighter.toggle()">
+            {{ course.longDescription }}
+        </div>
+
+    </course-card>
+
+</div>
+
+

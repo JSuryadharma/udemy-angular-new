@@ -1,4 +1,4 @@
-<ng-container *ngIf="course">
+<ng-container *ngIf="course" #container>
     <!-- bisa masukkan Array of Strings, Strings, hingga XML data type
          ke dalam ngClass, namun disarankan hanya conditional class type saja
          untuk meningkatkan data readability, tidak diperuntukkan untuk mengganti class property pada css
@@ -13,16 +13,31 @@
         <div class="course-title">
             {{ cardIndex || '' + ' ' + course.description }}
         </div>
-        <img #courseImage width="300" alt="Angular Logo" *ngIf="isImageVisible(); else noImage"
-            [src]="course.iconUrl">
+
+        <!-- Template disimpan oleh angular, tanpa ditampilkan secara default (terisolasi)
+        dan hanya dimunculkan ketika ada referensi eksplisit, konteks variabel tetap dapat diakses
+        dimana template tersebut diembed -->
+        <!-- <ng-template #blankImage>
+            <p class="warn">{{ course.description }} has no image yet.</p>
+            <img src="/assets/empty-image.png">
+        </ng-template> -->
+
+        <!-- Content Projector, untuk menerima dan menampilkan elemen konten, secara keseluruhan maupun partial dengan select CSS -->
+        <ng-content select="course-image" *ngIf="course.iconUrl; else noImage"></ng-content>
+
+        <ng-template #noImage>
+            <ng-container *ngTemplateOutlet="noImageTpl; context: {description: course.description}"></ng-container>
+        </ng-template>
+
+        <ng-content select=".course-description"></ng-content>
+        <!-- <ng-content></ng-content> -->
+        
+        <!-- <img #courseImage width="300" alt="Angular Logo" *ngIf="isImageVisible(); else noImage"
+        [src]="course.iconUrl">
         
         <ng-template #noImage>
             <p>No image is available</p>
-        </ng-template>
-
-        <div class="course-description">
-            {{ course.longDescription }} 
-        </div>
+        </ng-template> -->
 
         <!-- Ng-container merupakan directive yang berfungsi
         sebagai parent container dalam melakukan suatu structural directive
